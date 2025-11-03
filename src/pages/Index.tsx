@@ -31,17 +31,29 @@ const questions = [
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [ageRejected, setAgeRejected] = useState(false);
   const navigate = useNavigate();
 
   const handleAnswer = (answer: string) => {
-    // Move to next question or final page
+    // Handle age gate (question 4)
+    if (currentStep === 3) {
+      if (answer === "No") {
+        setAgeRejected(true);
+        return; // Don't proceed
+      } else if (answer === "Yes") {
+        setAgeRejected(false);
+        // Proceed to final page
+        setTimeout(() => {
+          navigate("/final");
+        }, 300);
+        return;
+      }
+    }
+
+    // Move to next question for other steps
     if (currentStep < questions.length - 1) {
       setTimeout(() => {
         setCurrentStep(currentStep + 1);
-      }, 300);
-    } else {
-      setTimeout(() => {
-        navigate("/final");
       }, 300);
     }
   };
@@ -73,7 +85,7 @@ const Index = () => {
               question={questions[currentStep].question}
               options={questions[currentStep].options}
               onSelect={handleAnswer}
-              showAgeDisclaimer={currentStep === 3}
+              ageRejected={ageRejected}
             />
           </motion.div>
         </AnimatePresence>
