@@ -4,9 +4,10 @@ interface QuestionCardProps {
   question: string;
   options: string[];
   onSelect: (option: string) => void;
+  showAgeDisclaimer?: boolean;
 }
 
-const QuestionCard = ({ question, options, onSelect }: QuestionCardProps) => {
+const QuestionCard = ({ question, options, onSelect, showAgeDisclaimer }: QuestionCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -16,6 +17,13 @@ const QuestionCard = ({ question, options, onSelect }: QuestionCardProps) => {
       className="w-full max-w-md mx-auto px-4"
     >
       <div className="bg-card rounded-2xl shadow-lg p-8 border border-border">
+        {showAgeDisclaimer && (
+          <div className="mb-6 p-4 bg-muted rounded-lg border border-border">
+            <p className="text-sm text-muted-foreground text-center">
+              You must be 18 or older to participate in this application process.
+            </p>
+          </div>
+        )}
         <h2 className="text-2xl font-semibold text-foreground mb-8 text-center">
           {question}
         </h2>

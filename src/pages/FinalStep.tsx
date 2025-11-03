@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import appleMusicLogo from "@/assets/apple-music-logo.jpg";
+import appleMusicLogo from "@/assets/apple-music-logo.png";
 import ProgressBar from "@/components/ProgressBar";
 import { Button } from "@/components/ui/button";
 
@@ -18,7 +18,7 @@ const FinalStep = () => {
           <img
             src={appleMusicLogo}
             alt="Apple Music"
-            className="h-12 md:h-16 mx-auto object-contain"
+            className="h-16 md:h-20 mx-auto object-contain"
           />
         </div>
         <ProgressBar currentStep={5} totalSteps={5} />

@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import appleMusicLogo from "@/assets/apple-music-logo.jpg";
+import appleMusicLogo from "@/assets/apple-music-logo.png";
 import ProgressBar from "@/components/ProgressBar";
 import QuestionCard from "@/components/QuestionCard";
-import AgeGateDialog from "@/components/AgeGateDialog";
 
 const questions = [
   {
@@ -32,16 +31,9 @@ const questions = [
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [showAgeGate, setShowAgeGate] = useState(false);
   const navigate = useNavigate();
 
   const handleAnswer = (answer: string) => {
-    // Check if it's the age gate question and user selected "No"
-    if (currentStep === 3 && answer === "No") {
-      setShowAgeGate(true);
-      return;
-    }
-
     // Move to next question or final page
     if (currentStep < questions.length - 1) {
       setTimeout(() => {
@@ -56,14 +48,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <AgeGateDialog open={showAgeGate} />
-      
       <div className="flex-shrink-0">
         <div className="pt-6 pb-4 px-4">
           <img
             src={appleMusicLogo}
             alt="Apple Music"
-            className="h-12 md:h-16 mx-auto object-contain"
+            className="h-16 md:h-20 mx-auto object-contain"
           />
         </div>
         <ProgressBar currentStep={currentStep + 1} totalSteps={5} />
@@ -83,6 +73,7 @@ const Index = () => {
               question={questions[currentStep].question}
               options={questions[currentStep].options}
               onSelect={handleAnswer}
+              showAgeDisclaimer={currentStep === 3}
             />
           </motion.div>
         </AnimatePresence>
